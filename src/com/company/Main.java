@@ -1,5 +1,6 @@
 package com.company;
 import java.io.*;
+import java.util.Arrays;
 
 public class Main {
 
@@ -37,9 +38,13 @@ public class Main {
     private static void getFileContent (String filePath) throws IOException {
         FileInputStream input= new FileInputStream(filePath);
 
+            byte[] bytes = new byte[1000];
             int f = 0;
+            System.out.println("Total characters available: " + input.available());
             while ((f=input.read())!=-1) {
-                System.out.println((char) f);
+                int bytesread = input.read(bytes);
+                System.out.println("Characters read = " + bytesread);
+                System.out.println(Arrays.toString(bytes));
             }
             input.close();
 
