@@ -1,18 +1,22 @@
 package com.company;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 public class Main {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //System.out.println("Hello World");
 
         boolean compressed = isCompressed(args[0]);
         String filePath = args[1];
         System.out.println("File path is: " + filePath);
         System.out.println("Compression status is: " + compressed);
+        try {
+            getFileContent(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     private static boolean isCompressed(String compressing){
@@ -30,13 +34,16 @@ public class Main {
         return "Decompress working.";
     }
 
-    private static void getFileContent (String filePath) {
-        try {
+    private static void getFileContent (String filePath) throws IOException {
+        FileInputStream input= new FileInputStream(filePath);
 
-            InputStream input = new FileInputStream(filePath);
-        }catch (Exception E){
-            System.out.println("File not found");
-        }
+            int f = 0;
+            while ((f=input.read())!=-1) {
+                System.out.println((char) f);
+            }
+            input.close();
+
+
     }
 
 }
