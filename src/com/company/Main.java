@@ -65,8 +65,12 @@ public class Main {
             System.out.println("Decompressed char is: " + ((char)bytes[a]));
             a++;
             }
-        System.out.println("Array contains: " + Arrays.toString(bytes));
         GZin.close();
+        StringBuilder newString = new StringBuilder();
+        for (a = 0; a < 36; a++){
+            newString.append((char)bytes[a]);
+        }
+        System.out.println("Uncompressed file contains: " + newString);
         return "Decompress working.";
     }
 
