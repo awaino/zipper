@@ -1,5 +1,7 @@
 package com.company;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.zip.*;
 
@@ -51,6 +53,9 @@ public class Main {
         GZout.close();
         out.close();
         in.close();
+
+        File file = new File(filePath);
+        file.delete();
     }
 
     private static void decompress(String filepath) throws IOException{
@@ -59,7 +64,7 @@ public class Main {
 
         String newfilepath = filepath.substring(0,filepath.length() -3);
 
-        FileOutputStream out = new FileOutputStream(newfilepath + ".txt");
+        FileOutputStream out = new FileOutputStream(newfilepath);
 
         int ch = 0;
         while ((ch = GZin.read()) > 0){
@@ -70,6 +75,9 @@ public class Main {
         in.close();
         GZin.close();
 
-        System.out.println("Filepath is: " + newfilepath + ".txt");
+        System.out.println("Filepath is: " + newfilepath);
+
+        File file = new File(newfilepath + ".GZ");
+        file.delete();
     }
 }
