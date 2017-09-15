@@ -10,25 +10,31 @@ import static jdk.nashorn.internal.objects.NativeString.substring;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-
+        int a = 1;
+        String filePath = args[a];
         boolean compressed = isCompressed(args[0]);
-        String filePath = args[1];
-        System.out.println("File path is: " + filePath);
-        System.out.println("Compression status is: " + compressed);
 
-        if(compressed == true) {
-            try {
-                compress(filePath);
-            } catch (IOException e) {
-                e.printStackTrace();
+        while (a < args.length) {
+            filePath = args[a];
+            System.out.println("File name is: " + filePath);
+
+            if (compressed == true) {
+                System.out.println("Compressing...");
+                try {
+                    compress(filePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        if(compressed == false){
-            try{
-                decompress(filePath);
-            }catch (IOException e) {
-                e.printStackTrace();
+            if (compressed == false) {
+                System.out.println("Decompressing...");
+                try {
+                    decompress(filePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            a++;
         }
     }
     private static boolean isCompressed(String compressing){
@@ -53,6 +59,7 @@ public class Main {
         GZout.close();
         out.close();
         in.close();
+        System.out.println("Compressed file is named: " + filePath + ".GZ");
 
         File file = new File(filePath);
         file.delete();
@@ -75,7 +82,7 @@ public class Main {
         in.close();
         GZin.close();
 
-        System.out.println("Filepath is: " + newfilepath);
+        System.out.println("Decompressed file is named: " + newfilepath);
 
         File file = new File(newfilepath + ".GZ");
         file.delete();
